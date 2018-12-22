@@ -1,68 +1,31 @@
 <!DOCTYPE HTML>
-<head>
-	<script src="./lib/jsencrypt.js"></script>
-	<script src="./lib/crypto.js"></script>
-	<title>Sign a Corescript</title>
-</head>
-<body>
-	<script>
-		window.onload = function() {
-			var crypt = new JSEncrypt();
-			var key = document.getElementById('key');
-			var signature = document.getElementById('signature');
-			var input = document.getElementById('input');
-			
-			key.value = crypt.getPrivateKey();
-			
-			input.addEventListener('change', function(e) {
-				var file = input.files[0];
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-					crypt.setPrivateKey(key.value);
-					document.getElementById('signature').value = '--rbxsig%' + crypt.sign(reader.result, CryptoJS.SHA1, "sha1") + '%';
-                }
-
-                reader.readAsText(file);    
-            });
-        };
-		
-		function generate() {
-			var crypt = new JSEncrypt();
-			document.getElementById('key').value = crypt.getPrivateKey();
-		}
-		
-		// https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
-		function copy(id) {
-			var signature = document.getElementById(id);
-			signature.focus();
-			signature.select();
-			try {
-				var success = document.execCommand('copy');
-				console.log('copying text was ' + success ? 'successful' : 'unsuccessful');
-			} catch(e) {
-				console.log('couldn\'t copy text');
-			}
-		}
-	</script>
-	<a href="../index.html">Home</a> >> <a href="./index.html">My Roblox Stuff</a> >> <a href="#">Sign a Corescript</a><br>
-	<h1>Sign a Corescript</h1>
-	<span>By Swirln</span><br>
-	<span>Made with <a href="https://github.com/travist/jsencrypt">JSEncrypt</a></span>
-	<br><br>
-	<span><b>Private Key</b></span><br>
-	<textarea id="key" style="width:300px;height:200px;" rows="15"></textarea><br><br>
-	<button onclick="copy('key')">Copy</button> <button onclick="generate()">Generate Key</button> <input id="input" type="file" accept="*/*"><br><br>
-	<span><b>Your signature</b><br><textarea id="signature" style="width: 300px;"></textarea></span><br>
-	<button onclick="copy('signature')">Copy</button>
-	<h2>Instructions for patching</h2>
-	<span>By MAO</span>
-	<ol>
-		<li>Get <a href="https://mh-nexus.de/downloads/HxDSetup.zip">HxD</a></li>
-		<li>Open RobloxPlayerBeta.exe</li>
-		<li>Ctrl + F "bgiaaac"</li>
-		<li>Select the entire thing</li>
-		<li>Replace it with the public key</li>
-		<li>Save it as a new executable, and you're done</li>
-	</ol>
-</body>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="./lib/jsencrypt.js"></script>
+		<script type="text/javascript" src="./lib/crypto.js"></script>
+		<script type="text/javascript" src="./lib/sign.js"></script>
+		<title>Sign a Corescript</title>
+	</head>
+	<body>
+		<a href="/">Home</a> >> <a href="./">My Roblox Stuff</a> >> <a href="#">Sign a Corescript</a><br>
+		<h1>Sign a Corescript</h1>
+		<span>Sign a corescript or a regular script. Includes patching instructions and a key generator!</span><br>
+		<br><br>
+		<span><b>Private Key</b></span><br>
+		<textarea id="key" style="width:300px;height:200px;" rows="15"></textarea><br><br>
+		<button onclick="copy('key')">Copy</button> <button onclick="generate()">Generate Key</button> <input id="input" type="file" accept="*/*"><br><br>
+		<span><b>Your signature</b><br><textarea id="signature" style="width: 300px;"></textarea></span><br>
+		<button onclick="copy('signature')">Copy</button>
+		<h2>Instructions for patching</h2>
+		<span>By MAO</span>
+		<ol>
+			<li>Get <a href="https://mh-nexus.de/downloads/HxDSetup.zip">HxD</a></li>
+			<li>Open RobloxPlayerBeta.exe</li>
+			<li>Ctrl + F "bgiaaac"</li>
+			<li>Select the entire thing</li>
+			<li>Replace it with the public key</li>
+			<li>Save it as a new executable, and you're done</li>
+		</ol>
+	</body>
+</html>
